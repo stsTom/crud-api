@@ -4,13 +4,17 @@
   "description": "",
   "main": "app.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cross-env tsx watch ./src/app.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "devDependencies": {
+    "@fastify/env": "^5.0.3",
+    "cross-env": "^10.1.0",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }
 }
