@@ -1,5 +1,6 @@
 import fastifyEnv from '@fastify/env'
 import fastify from 'fastify'
+import productRoutes from './api/products.ts';
 
 declare module 'fastify' {
   interface FastifyInstance {
@@ -31,6 +32,7 @@ export const createApp = async () => {
   const app = fastify({ logger: true })
 
   await app.register(fastifyEnv, options)
+  await app.register(productRoutes)
 
   return app
 }
