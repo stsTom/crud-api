@@ -9,6 +9,18 @@ import { request } from 'node:http';
 export default async function productRoutes(fastify: FastifyInstance) {
   const isDev = process.env.NODE_ENV === 'development'
 
+  fastify.setErrorHandler((error, request, reply) => {
+    reply.status(500).send({
+      status: "error",
+      message: isDev ? error : "Oops! Something went wrong on our end..."
+    });
+  });
+
+  //use this route to test internal server error
+  fastify.get('/api/products/error', async () => {
+    throw new Error ("WASTED")
+  })
+
   //GET api/products
   fastify.get('/api/products', async () => {
     return products;
