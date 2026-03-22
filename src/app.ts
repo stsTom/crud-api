@@ -1,6 +1,6 @@
 import fastifyEnv from '@fastify/env'
 import fastify from 'fastify'
-import productRoutes from './api/products.ts';
+import productRoutes from './api/products.js';
 
 declare module 'fastify' {
   interface FastifyInstance {

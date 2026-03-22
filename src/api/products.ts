@@ -1,9 +1,7 @@
-import { FastifyInstance } from 'fastify';
+import type { FastifyInstance } from 'fastify';
 import { v4 as uuidv4 } from 'uuid';
 import z from 'zod';
-import { Product, products, productSchema } from '../data/productsData.ts';
-import { error } from 'node:console';
-import { request } from 'node:http';
+import { type Product, products, productSchema } from '../data/productsData.js';
 
 
 export default async function productRoutes(fastify: FastifyInstance) {

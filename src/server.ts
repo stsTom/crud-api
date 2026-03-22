@@ -1,6 +1,6 @@
-import process from "node:process"
-import { createApp } from "./App.ts"
+import { createApp } from "./app.js"
 
+try{
 const app = await createApp()
 const port = app.config.PORT
 
@@ -9,4 +9,7 @@ process.on('SIGINT', async () => {
   process.exit(0)
 })
 
-await app.listen({ port: port })
+  await app.listen({ port: port })
+}catch(error){
+  process.exit(1)
+}
