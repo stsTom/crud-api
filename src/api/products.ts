@@ -14,26 +14,64 @@ export default async function productRoutes(fastify: FastifyInstance) {
     return products;
   })
 
-  //GET product by id
+  //GET api/products/:id
   fastify.get('/api/products/:id', async (request, reply) => {
     const { id } = request.params as { id: string }
     const product = products.find(p => p.id === id)
     const result = z.string().uuid().safeParse(id)
-
+    
     if (!result.success) {
       console.log(id)
       return reply.status(400).send({
         errors: isDev ? result.error.flatten().fieldErrors : "Invalid input, check your fields"
       })
     }
+    
+    if (!product) {
+      return reply.status(404).send({ 
+      message: `Product with ID ${id} not found` 
+      })
+    }
+    
+    return reply.status(200).send(product)
+  })
 
+  //PUT api/products/:id
+  fastify.put('/api/products/:id', async (request,reply) => {
+    const { id } = request.params as { id: string }
+    const product = products.find(p => p.id === id)
+    const idResult = z.string().uuid().safeParse(id)
+    
+    if (!idResult.success) {
+      console.log(id)
+      return reply.status(400).send({
+        errors: isDev ? idResult.error.flatten().fieldErrors : "Invalid input, check your fields"
+      })
+    }
+    
     if (!product) {
       return reply.status(404).send({ 
       message: `Product with ID ${id} not found` 
       })
     }
 
-    return reply.status(200).send(product)
+    const productResult = productSchema.safeParse(request.body)
+    const index = products.indexOf(product)
+    
+    if (!productResult.success) {
+      return reply.status(400).send({
+        errors: isDev ? productResult.error.flatten().fieldErrors : "Invalid input, check your fields"
+      })
+    }
+
+    const updatedProduct: Product = {
+      id: id,
+      ...productResult.data
+    };
+
+  products[index] = updatedProduct;
+
+  return reply.status(200).send(updatedProduct);
   })
 
   // POST api/products
@@ -56,21 +94,21 @@ export default async function productRoutes(fastify: FastifyInstance) {
     return reply.status(201).send(newProduct)
   })
 
-  //Delete specified product
+  //DELETE api/products/:id
   fastify.delete('/api/products/:id', async (request, reply) => {
     const { id } = request.params as { id: string }
     const product = products.find(p => p.id === id)
     const result = z.string().uuid().safeParse(id)
 
     if (!result.success) {
-      return reply.status(400).send({
-        errors: isDev ? result.error.flatten().fieldErrors : "Invalid input, check your fields"
+    return reply.status(400).send({
+      errors: isDev ? result.error.flatten().fieldErrors : "Invalid input, check your fields"
       })
     }
-
+    
     if (!product) {
       return reply.status(404).send({ 
-      message: `Product with ID ${id} not found` 
+        message: `Product with ID ${id} not found` 
       })
     }
     
