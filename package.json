@@ -5,7 +5,8 @@
   "main": "app.ts",
   "scripts": {
     "start:dev": "cross-env NODE_ENV=development tsx watch ./src/server.ts",
-    "start:prod": "tsc && cross-env NODE_ENV=production ./dist/server.js"
+    "start:prod": "tsc && cross-env NODE_ENV=production ./dist/server.js",
+    "test": "vitest"
   },
   "keywords": [],
   "author": "",
@@ -20,5 +21,8 @@
     "typescript": "^5.9.3",
     "uuid": "^13.0.0",
     "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "vitest": "^4.1.0"
   }
 }

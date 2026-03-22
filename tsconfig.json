@@ -39,5 +39,6 @@
 
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": false
-  }
+  },
+  "exclude": ["dist", "node_modules", "tests"]
 }
