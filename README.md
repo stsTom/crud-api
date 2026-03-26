@@ -12,6 +12,7 @@
   > 1. Open postman and run the app using `start:dev` or `start:prod` commands in your Terminal
   > 2. Inside Postman or any other client you use, add `/api/products` inside the path field (`/api/products/[product id]` when trying to target a specific item from the database)
   > 3. Simply choose an edpoint to test and provide the required data
+  > 4. To simulate a server-side error use path `/api/products/error`
 
 Here's a product example (id field is not required as it's created automatically by the server. However, you might want to test if that value doesn't get overwritten manually):\
   {\
